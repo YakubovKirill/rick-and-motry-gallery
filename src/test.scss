@@ -1,8 +1,38 @@
-$back-color: black;
+$back-color: rgb(193, 193, 193);
+$nav-bar-color: rgb(236, 236, 236);;
+
+$nav-bar-height: 70px;
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.f-c {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.m-w-1200 {
+    width: 100%;
+    max-width: 1200px;
+}
+
+.nav-bar {
+    height: $nav-bar-height;
+    width: 100%;
+    background-color: $nav-bar-color;
+    box-shadow: 10px 10px 10px rgba(152, 152, 152, 0.145);
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 10px;
+}
 
 .some-class {
     background-color: $back-color;
-    width: 200px;
+    width: 300px;
     height: 100px;
     position: absolute;
+    margin: 0;
+    padding: 0;
 }
