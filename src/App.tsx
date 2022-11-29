@@ -1,25 +1,35 @@
+import { useEffect } from 'react';
+import { useGetCharactersQuery } from './API';
+import { ComponentA } from './components/component-a';
+import { useAppDispatch } from './store';
+import { addCharacters } from './store/slices/characters';
 import './test.scss';
 
-interface ISomeComponenProps {
+interface INavBarProps {
   message: string,
 }
 
-const SomeComponent = ({ message }: ISomeComponenProps) => {
+const NavBar = ({ message }: INavBarProps) => {
   return (
-    <>
-      <h1>{ message }</h1>
-    </>
+      <div className="nav-bar f-c">
+        <div className="m-w-1200">
+          <h1>{ message }</h1>
+          <ComponentA />
+        </div>
+      </div>
   );
 }
 
 function App() {
+  const dispatch = useAppDispatch()
+  const { data} = useGetCharactersQuery();
+  useEffect(() => {
+    dispatch(addCharacters(data));
+  }, [data, dispatch]);
+
   return (
     <div className="App">
-      <div className="nav-bar f-c">
-        <div className="m-w-1200">
-          <SomeComponent message='Hello from some component' />
-        </div>
-      </div>
+      <NavBar message='Hello from some component' />
     </div>
   );
 }
