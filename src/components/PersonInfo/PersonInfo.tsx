@@ -34,8 +34,8 @@ export const PersonInfo = () => {
                 <PersonCard person={ person }></PersonCard>
             </Person>
         );
-    } else {
-        return (<PageNotFound />)
     }
+    
+    return (<PageNotFound />)
     
 }

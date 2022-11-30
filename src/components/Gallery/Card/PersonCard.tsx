@@ -15,31 +15,28 @@ interface IPersonCardProps {
 
 export const PersonCard = ({ person }: IPersonCardProps) => {
     return (
-        <Card sx={{ maxWidth: 300 }} style={{ marginBottom: 30 }}>
-            <CardActionArea>
-                <CardHeader
-                    title={ person.name }
-                    subheader={ new Date(person.created).toDateString() }
-                />
-                <CardMedia
-                    component="img"
-                    height="200"
-                    image={ person.image }
-                    alt={ `${person.name} image` }
-                />
-                <CardContent>
-                    <Typography>
-                    This impressive paella is a perfect party dish and a fun meal to cook
-                    together with your guests. Add 1 cup of frozen peas along with the mussels,
-                    if you like.
-                    </Typography>
-                </CardContent>
-                <CardActions>
-                    <Link to={`/${ person.id }`}>
-                        <Button size="small">Learn More</Button>
-                    </Link>
-                </CardActions>
-            </CardActionArea>
-        </Card>
+        <Link to={`/${ person.id }`}>
+            <Card sx={{ maxWidth: 300 }} style={{ marginBottom: 30 }}>
+                <CardActionArea>
+                    <CardHeader
+                        title={ person.name }
+                        subheader={ new Date(person.created).toDateString() }
+                    />
+                    <CardMedia
+                        component="img"
+                        height="200"
+                        image={ person.image }
+                        alt={ `${person.name} image` }
+                    />
+                    <CardContent>
+                        <Typography>
+                        This impressive paella is a perfect party dish and a fun meal to cook
+                        together with your guests. Add 1 cup of frozen peas along with the mussels,
+                        if you like.
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+            </Card>
+        </Link>
     );
 }
