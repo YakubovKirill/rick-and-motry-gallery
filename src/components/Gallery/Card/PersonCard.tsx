@@ -1,9 +1,12 @@
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
+import CardActions from "@mui/material/CardActions";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 import { ICharacter } from "../../../store/slices/characters";
 
 interface IPersonCardProps {
@@ -31,6 +34,11 @@ export const PersonCard = ({ person }: IPersonCardProps) => {
                     if you like.
                     </Typography>
                 </CardContent>
+                <CardActions>
+                    <Link to={`/${ person.id }`}>
+                        <Button size="small">Learn More</Button>
+                    </Link>
+                </CardActions>
             </CardActionArea>
         </Card>
     );
