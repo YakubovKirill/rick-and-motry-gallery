@@ -27,7 +27,6 @@ function App() {
   const { data } = useGetCharactersQuery();
   useEffect(() => {
     dispatch(addCharacters(data));
-    console.log(data);
   }, [data, dispatch]);
 
   // [2, 4, 6, 10]
@@ -39,7 +38,7 @@ function App() {
  
   return (
     <div className="App">
-      <NavBar message='Hello from some component' />
+      <NavBar message='Rick and Morty gallery' />
       <Content>
         <GalleryList />
       </Content>

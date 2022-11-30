@@ -4,20 +4,25 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { ICharacter } from "../../../store/slices/characters";
 
-export const PersonCard = () => {
+interface IPersonCardProps {
+    person: ICharacter
+}
+
+export const PersonCard = ({ person }: IPersonCardProps) => {
     return (
         <Card sx={{ maxWidth: 300 }} style={{ marginBottom: 30 }}>
             <CardActionArea>
                 <CardHeader
-                    title="This is some card"
-                    subheader="Date od card"
+                    title={ person.name }
+                    subheader={ new Date(person.created).toDateString() }
                 />
                 <CardMedia
                     component="img"
                     height="200"
-                    image="https://rickandmortyapi.com/api/character/avatar/1.jpeg"
-                    alt="Some card image"
+                    image={ person.image }
+                    alt={ `${person.name} image` }
                 />
                 <CardContent>
                     <Typography>
