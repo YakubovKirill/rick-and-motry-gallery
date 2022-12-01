@@ -1,6 +1,6 @@
 import { styled } from "@mui/system";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-import { memo, useEffect } from "react";
+import { memo } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { reselectCharacterByStatus } from "../../store/slices/characters";
 import { setFilter } from "../../store/slices/galleryFilter";
@@ -38,6 +38,7 @@ const  GalleryList = () => {
                     >
                         <ToggleButton value="Alive">Alive</ToggleButton>
                         <ToggleButton value="Dead">Dead</ToggleButton>
+                        <ToggleButton value="unknown">Unknown</ToggleButton>
                         <ToggleButton value="All">All</ToggleButton>
                     </ToggleButtonGroup>
                 </Box>

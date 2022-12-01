@@ -34,6 +34,14 @@ const PersonCard = ({ person }: IPersonCardProps) => {
                         if you like.
                         </Typography>
                     </CardContent>
+                    <CardContent>
+                        <Typography>
+                        Status
+                        </Typography>
+                        <Typography color={person.status === 'Alive' ? "primary" : "secondary"}>
+                        { person.status }
+                        </Typography>
+                    </CardContent>
                 </CardActionArea>
             </Card>
         </Link>
