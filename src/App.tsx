@@ -4,7 +4,7 @@ import { useGetCharactersByPageQuery } from './API';
 import { MessageWrap } from './components/MessageWrap/MessageWrap';
 import { Content } from './components/Content/Content';
 import { useAppDispatch, useAppSelector } from './store';
-import { addCharacters } from './store/slices/characters';
+import { addCharacters, clearCharacters } from './store/slices/characters';
 import './test.scss';
 import { LABEL } from './label';
 import { ROUTE } from './route';
@@ -30,9 +30,11 @@ function App() {
   const dispatch = useAppDispatch()
   const currentPage = useAppSelector((state) => state.currentPage);
   const { data } = useGetCharactersByPageQuery(currentPage);
+
   useEffect(() => {
+    dispatch(clearCharacters());
     dispatch(addCharacters(data?.results || []));
-  }, [data, dispatch]);
+  }, [data, currentPage, dispatch]);
  
   return (
     <div className="App">
@@ -40,7 +42,7 @@ function App() {
       <Content>
         <Suspense fallback={ <MessageWrap message={ LABEL.LOADING } /> }>
           <Routes>
-            <Route path={ ROUTE.HOME } element={ <GalleryList /> } />
+            <Route path={ ROUTE.HOME } element={ <GalleryList pagesCount={ data?.info.pages || 10 } /> } />
             <Route path={ ROUTE.PERSON_INFO } element={ <PersonInfo /> } />
             <Route path={ ROUTE.ALL_ROUTES } element={ <MessageWrap message={ LABEL.PAGE_NOT_FOUND } /> } />
           </Routes>

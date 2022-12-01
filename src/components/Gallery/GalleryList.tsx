@@ -1,11 +1,12 @@
 import { styled } from "@mui/system";
-import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { Pagination, ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { memo } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { reselectCharacterByStatus } from "../../store/slices/characters";
 import { setFilter } from "../../store/slices/galleryFilter";
 import PersonCard from "./Card/PersonCard";
 import { Gallery } from "./styled";
+import { setCurrentPage } from "../../store/slices/currentPage";
 
 const Box = styled('div')(({ theme }) => ({
     width: '100%',
@@ -15,13 +16,21 @@ const Box = styled('div')(({ theme }) => ({
     marginBottom: 20,
 }))
 
-const  GalleryList = () => {
+interface Props {
+    pagesCount: number,
+}
+
+const  GalleryList = ({ pagesCount }: Props) => {
     const filter = useAppSelector((state) => state.filter);
     const characters = useAppSelector((state) => reselectCharacterByStatus(state.characters, filter))
     const dispatch = useAppDispatch();
 
     const handleFilterChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, value: string) => {
         dispatch(setFilter(value))
+    }
+
+    const changePage = (event: React.ChangeEvent<unknown>, page: number) => {
+        dispatch(setCurrentPage(page));
     }
 
     return (
@@ -41,6 +50,9 @@ const  GalleryList = () => {
                         <ToggleButton value="unknown">Unknown</ToggleButton>
                         <ToggleButton value="All">All</ToggleButton>
                     </ToggleButtonGroup>
+                </Box>
+                <Box>
+                    <Pagination count={ pagesCount } variant="outlined" onChange={changePage} />
                 </Box>
                 <>
                     { characters.map((character) => <PersonCard key={character.id} person={ character } />)}

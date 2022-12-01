@@ -43,9 +43,7 @@ export const charactersSlice = createSlice({
             state.pop()
         },
 
-        clearCharacters: (state) => {
-            state = [];
-        }
+        clearCharacters: (state) => []
     }
 });
 
