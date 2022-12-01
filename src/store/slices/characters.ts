@@ -31,23 +31,15 @@ export const charactersSlice = createSlice({
     name: 'characters',
     initialState,
     reducers: {
-        addCharacter: (state, action: PayloadAction<ICharacter>) => {
-            state.push(action.payload)
-        },
-
         addCharacters: (state, action: PayloadAction<ICharacter[] | undefined>) => {
             action.payload && state.push(...action.payload)
-        },
-
-        removeLastCharacter: (state) => {
-            state.pop()
         },
 
         clearCharacters: (state) => []
     }
 });
 
-export const { addCharacter, addCharacters, removeLastCharacter, clearCharacters } = charactersSlice.actions;
+export const { addCharacters, clearCharacters } = charactersSlice.actions;
 export const selectCharacters = (state: ICharacter[]) => state;
 export const reselectCharacterById = createSelector(
     [(state: ICharacter[]) => state, (_, id: number) => id],
