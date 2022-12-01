@@ -38,4 +38,8 @@ export const charactersApi = createApi({
   }),
 })
 
-export const { useGetCharactersQuery, useGetCharactersByPageQuery, useGetStatusFilteredCharactersByPageQuery } = charactersApi;
+export const {
+  useGetCharactersQuery,
+  useGetCharactersByPageQuery,
+  useGetStatusFilteredCharactersByPageQuery
+} = charactersApi;
