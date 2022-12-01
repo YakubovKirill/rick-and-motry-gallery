@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSelector, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IOrigin {
     name: string;
@@ -51,3 +51,7 @@ export const charactersSlice = createSlice({
 
 export const { addCharacter, addCharacters, removeLastCharacter, clearCharacters } = charactersSlice.actions;
 export const selectCharacters = (state: ICharacter[]) => state;
+export const reselectCharacterById = createSelector(
+    [(state: ICharacter[]) => state, (_, id: number) => id],
+    (characters, selectId ) => characters.find((character) => character.id === selectId)
+)

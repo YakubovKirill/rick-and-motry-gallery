@@ -1,8 +1,7 @@
 import { styled } from "@mui/joy";
-import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { RootState } from "../../store";
-import { ICharacter } from "../../store/slices/characters";
+import { useAppSelector } from "../../store";
+import { reselectCharacterById } from "../../store/slices/characters";
 import { PageNotFound } from "../404/PageNotFound";
 import { PersonCard } from "../Gallery/Card/PersonCard";
 
@@ -20,14 +19,8 @@ const Person = styled('div')(({ theme }) => ({
 
 export const PersonInfo = () => {
     const { id } = useParams();
-    const person = useSelector((state: RootState) => {
-        if (id) {
-            const persons = state.characters.filter((character) => character.id === Number(id))
-            return persons.length > 0 ? persons[0] : undefined
-        }
-        return undefined;
-    });
-    
+    const person = useAppSelector((state) => reselectCharacterById(state.characters, Number(id)));
+
     if (person) {
         return (
             <Person>
@@ -35,7 +28,6 @@ export const PersonInfo = () => {
             </Person>
         );
     }
-    
+
     return (<PageNotFound />)
-    
 }
