@@ -27,7 +27,7 @@ export const charactersApi = createApi({
       query: () => `character`,
       transformResponse: (response: IResponse) => response.results
     }),
-    getCharactersByPage: builder.query<IResponse, string>({
+    getCharactersByPage: builder.query<IResponse, number>({
       query: (page) => `character/?page=${page}`,
       transformResponse: (response: IResponse) => response,
     }),

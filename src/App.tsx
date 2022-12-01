@@ -1,9 +1,9 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Link, Route, Routes } from 'react-router-dom';
-import { useGetCharactersQuery } from './API';
+import { useGetCharactersByPageQuery } from './API';
 import { MessageWrap } from './components/MessageWrap/MessageWrap';
 import { Content } from './components/Content/Content';
-import { useAppDispatch } from './store';
+import { useAppDispatch, useAppSelector } from './store';
 import { addCharacters } from './store/slices/characters';
 import './test.scss';
 import { LABEL } from './label';
@@ -28,10 +28,10 @@ const NavBar = ({ message }: INavBarProps) => {
 
 function App() {
   const dispatch = useAppDispatch()
-  const { data } = useGetCharactersQuery();
+  const currentPage = useAppSelector((state) => state.currentPage);
+  const { data } = useGetCharactersByPageQuery(currentPage);
   useEffect(() => {
-    dispatch(addCharacters(data));
-    console.log(data);
+    dispatch(addCharacters(data?.results || []));
   }, [data, dispatch]);
  
   return (
