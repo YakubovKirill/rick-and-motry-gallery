@@ -31,6 +31,7 @@ function App() {
   const { data } = useGetCharactersQuery();
   useEffect(() => {
     dispatch(addCharacters(data));
+    console.log(data);
   }, [data, dispatch]);
  
   return (

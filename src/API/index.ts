@@ -1,4 +1,4 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import { createApi, FetchArgs, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { ICharacter } from '../store/slices/characters'
 
 export interface Info {
@@ -13,6 +13,11 @@ export interface IResponse {
     results: ICharacter[];
 }
 
+interface QueryParams {
+  page: number,
+  status: string,
+}
+
 // Define a service using a base URL and expected endpoints
 export const charactersApi = createApi({
   reducerPath: 'charactersApi',
@@ -22,9 +27,15 @@ export const charactersApi = createApi({
       query: () => `character`,
       transformResponse: (response: IResponse) => response.results
     }),
+    getCharactersByPage: builder.query<IResponse, string>({
+      query: (page) => `character/?page=${page}`,
+      transformResponse: (response: IResponse) => response,
+    }),
+    getStatusFilteredCharactersByPage: builder.query<IResponse, QueryParams>({
+      query: ({ page, status }) => `character/?page=${page}&status=${status}`,
+      transformResponse: (response: IResponse) => response,
+    }),
   }),
 })
 
-// Export hooks for usage in function components, which are
-// auto-generated based on the defined endpoints
-export const { useGetCharactersQuery } = charactersApi;
+export const { useGetCharactersQuery, useGetCharactersByPageQuery, useGetStatusFilteredCharactersByPageQuery } = charactersApi;
