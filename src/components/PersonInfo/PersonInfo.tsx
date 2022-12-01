@@ -2,8 +2,9 @@ import { styled } from "@mui/joy";
 import { useParams } from "react-router-dom";
 import { useAppSelector } from "../../store";
 import { reselectCharacterById } from "../../store/slices/characters";
-import { PageNotFound } from "../404/PageNotFound";
-import { PersonCard } from "../Gallery/Card/PersonCard";
+import { MessageWrap } from "../MessageWrap/MessageWrap";
+import PersonCard from "../Gallery/Card/PersonCard";
+import { LABEL } from "../../label";
 
 const Person = styled('div')(({ theme }) => ({
     width: '80%',
@@ -17,7 +18,7 @@ const Person = styled('div')(({ theme }) => ({
     padding: 50,
 }))
 
-export const PersonInfo = () => {
+const PersonInfo = () => {
     const { id } = useParams();
     const person = useAppSelector((state) => reselectCharacterById(state.characters, Number(id)));
 
@@ -29,5 +30,7 @@ export const PersonInfo = () => {
         );
     }
 
-    return (<PageNotFound />)
+    return (<MessageWrap message={ LABEL.PAGE_NOT_FOUND } />)
 }
+
+export default PersonInfo;

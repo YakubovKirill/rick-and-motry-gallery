@@ -1,8 +1,9 @@
+import { memo } from "react";
 import { useAppSelector } from "../../store";
-import { PersonCard } from "./Card/PersonCard";
+import PersonCard from "./Card/PersonCard";
 import { Gallery } from "./styled";
 
-export const GalleryList = () => {
+const  GalleryList = () => {
     const characters = useAppSelector((state) => state.characters)
     return (
         <Gallery>
@@ -10,3 +11,5 @@ export const GalleryList = () => {
         </Gallery>
     )
 }
+
+export default memo(GalleryList);

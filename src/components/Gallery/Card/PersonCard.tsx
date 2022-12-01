@@ -4,6 +4,7 @@ import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
 import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import { ICharacter } from "../../../store/slices/characters";
 
@@ -11,7 +12,7 @@ interface IPersonCardProps {
     person: ICharacter
 }
 
-export const PersonCard = ({ person }: IPersonCardProps) => {
+const PersonCard = ({ person }: IPersonCardProps) => {
     return (
         <Link to={`/${ person.id }`}>
             <Card sx={{ maxWidth: 300 }} style={{ marginBottom: 30 }}>
@@ -38,3 +39,5 @@ export const PersonCard = ({ person }: IPersonCardProps) => {
         </Link>
     );
 }
+
+export default memo(PersonCard);

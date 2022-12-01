@@ -1,6 +1,6 @@
 import { styled } from "@mui/joy";
 
-const ErrorComponent = styled('div')(({ theme }) => ({
+const MessageComponent = styled('div')(({ theme }) => ({
     width: '80%',
     backgroundColor: '#fff',
     boxShadow: '0px 10px 10px #e3e3e3bd',
@@ -10,11 +10,15 @@ const ErrorComponent = styled('div')(({ theme }) => ({
     justifyContent: 'center',
     flexWrap: 'wrap',
     padding: 50,
-    color: 'red',
+    color: 'black',
 }))
 
-export const PageNotFound = () => (
-    <ErrorComponent>
-        <h2>404 Page not found</h2>
-    </ErrorComponent>
+interface Props {
+    message: string,
+}
+
+export const MessageWrap = ({ message }: Props) => (
+    <MessageComponent>
+        <h2>{ message }</h2>
+    </MessageComponent>
 );
