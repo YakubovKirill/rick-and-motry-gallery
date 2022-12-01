@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { Button, ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 import { memo, useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { reselectCharacterByStatus } from "../../store/slices/characters";
@@ -19,10 +19,6 @@ const  GalleryList = () => {
     const filter = useAppSelector((state) => state.filter);
     const characters = useAppSelector((state) => reselectCharacterByStatus(state.characters, filter))
     const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        console.log(filter);
-    }, [filter]);
 
     const handleFilterChange = (event: React.MouseEvent<HTMLElement, MouseEvent>, value: string) => {
         dispatch(setFilter(value))
