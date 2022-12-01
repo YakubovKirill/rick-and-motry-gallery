@@ -54,4 +54,8 @@ export const selectCharacters = (state: ICharacter[]) => state;
 export const reselectCharacterById = createSelector(
     [(state: ICharacter[]) => state, (_, id: number) => id],
     (characters, selectId ) => characters.find((character) => character.id === selectId)
+);
+export const reselectCharacterByStatus = createSelector(
+    [(state: ICharacter[]) => state, (_, status: string) => status],
+    (characters, selectStatus ) => characters.filter((character) => character.status === selectStatus)
 )
