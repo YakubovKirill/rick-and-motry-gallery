@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const initialState: string = 'All';
 
@@ -16,8 +16,10 @@ export const galleryFilter = createSlice({
 
         getAll: (state) => {
             state = 'All';
-        }
+        },
+
+        setFilter: (state, action: PayloadAction<string | undefined>) => action.payload ? action.payload: 'All',
     }
 });
 
-export const { getAlive, getAll, getDead } = galleryFilter.actions;
+export const { getAlive, getAll, getDead, setFilter } = galleryFilter.actions;
