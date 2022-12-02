@@ -11,3 +11,11 @@ export const Gallery = styled('div')(({ theme }) => ({
     flexWrap: 'wrap',
     paddingTop: 30,
 }));
+
+export const Box = styled('div')(({ theme }) => ({
+    width: '100%',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 20,
+}))
