@@ -9,6 +9,7 @@ import { setCurrentPage } from "../../store/slices/currentPage";
 import { MessageWrap } from "../MessageWrap/MessageWrap";
 import { LABEL } from "../../label";
 import { PERSON_STATUS } from "../../types";
+import { SearchForm } from "./SearchForm/SearchForm";
 
 interface Props {
     pagesCount: number,
@@ -45,6 +46,8 @@ const  GalleryList = ({ pagesCount=10, isFetching }: Props) => {
                     >
                         {Object.values(PERSON_STATUS).map((status) => <ToggleButton value={ status } key={ status }>{ status }</ToggleButton>)}
                     </ToggleButtonGroup>
+
+                    <Box><SearchForm /></Box>
                 </Box>
                 <Box>
                     <Pagination count={ pagesCount } variant="outlined" onChange={changePage} page={page} />

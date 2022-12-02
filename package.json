@@ -9,6 +9,7 @@
     "@fontsource/roboto": "^4.5.8",
     "@mui/icons-material": "^5.10.16",
     "@mui/joy": "^5.0.0-alpha.56",
+    "@mui/lab": "^5.0.0-alpha.110",
     "@mui/material": "^5.10.16",
     "@mui/styled-engine-sc": "^5.10.16",
     "@reduxjs/toolkit": "^1.9.0",
