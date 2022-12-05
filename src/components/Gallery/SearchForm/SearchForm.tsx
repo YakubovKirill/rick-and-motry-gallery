@@ -4,6 +4,9 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
 import { PERSON_GENDER, PERSON_STATUS } from '../../../types';
+import { useAppDispatch, useAppSelector } from '../../../store';
+import { useGetFilteredCharactersQuery } from '../../../API';
+import { setFilter } from '../../../store/slices/galleryFilter';
 
 const MenuProps = {
     PaperProps: {
@@ -13,66 +16,36 @@ const MenuProps = {
     },
   };
 
-// type ChangeTypeEvent = React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>  | SelectChangeEvent<string>
-// type Options = {
-//     defaultValues?: Record<string, string>
-//     rules?: Record<string, Record<string, string | number | boolean>>
-// }
-// const defaultValues = { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL}
-// const rules:Record<string, Record<string, string | number | boolean>> = {name: {minLength: 3}}
-
-
-// const useForm1 = (options: Options) => {
-//     const [values, setValue] = useState(options.defaultValues || {});
-//     const [errors, setError] = useState<Record<string, {message: string, type: string}[]>>( {})
-   
-//     const generateOnChange = (fieldName: string) => (event: ChangeTypeEvent) => {
-//         setValue(prev => ({...prev, [fieldName]: event.target.value}))
-//         Object.entries(rules[fieldName]).forEach(([currentType, value]) => {
-//             if(currentType === 'minLength') {
-//                 if(event.target.value.length < value) {
-//                     setError(prev => ({...prev, [fieldName]: [{message: 'Short name', type: currentType}]}))
-//                 } else {
-//                     setError(prev => {
-//                         console.log(prev[fieldName].filter(({type}) => type !== currentType))
-//                         return {...prev, [fieldName]: prev[fieldName].filter(({type}) => type !== currentType)}
-//                     } )
-//                 }
-//             }
-//         })
-       
-//     } 
-
-//     const register = (name: string) => ({
-//         value: values[name],
-//         onChange: generateOnChange(name),
-//         name,
-//         // error: Boolean(errors[name]?.length),
-//         // helperText: errors[name]?.[0] ? errors[name][0].message : ''
-//     })
-
-//     return {
-//         register
-//     }
-// }
-
 const schema = yup.object({
-    name: yup.string().required().min(3)
+    name: yup.string()
 }).required();
 
 export const SearchForm = () => {
-
-    const { register, control, handleSubmit } = useForm({
+    const { control, handleSubmit, reset, getValues } = useForm({
         defaultValues: { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL },
         resolver: yupResolver(schema),
     });
+    const filter = useAppSelector((state) => state.filter);
+    const dispatch = useAppDispatch()
 
     const formSubmit = (data: {
         name: string;
         status: string;
         gender: string;
     }) => {
-        console.log(data)
+        dispatch(setFilter({
+            ...filter,
+            ...getValues()
+        }));
+    }
+
+    const clearFilter = () => {
+        reset()
+        dispatch(setFilter({
+            ...filter,
+            page: 1,
+            ...getValues()
+        }));
     }
 
     return (
@@ -124,7 +97,10 @@ export const SearchForm = () => {
                     </Select>
                 }
             />
-            <Button type='submit'>Show</Button>
+            <Box>
+                <Button type='submit'>Show</Button>
+                <Button type='button' onClick={clearFilter}>Clear</Button>
+            </Box>
         </Box>
     )
 }

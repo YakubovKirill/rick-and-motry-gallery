@@ -1,13 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { PERSON_STATUS } from "../../types";
+import { PERSON_GENDER, PERSON_STATUS } from "../../types";
 
-const initialState: string = PERSON_STATUS.ALL;
+interface GalleryFilter {
+    page: number,
+    name: string,
+    status: string,
+    gender: string,
+}
+
+const initialState = {
+    page: 1,
+    name: '',
+    status: PERSON_STATUS.ALL,
+    gender: PERSON_GENDER.ALL,
+}
 
 export const galleryFilter = createSlice({
     name: 'galleryFilter',
     initialState,
     reducers: {
-        setFilter: (state, action: PayloadAction<string | undefined>) => action.payload ? action.payload: PERSON_STATUS.ALL,
+        setFilter: (state, action: PayloadAction<GalleryFilter>) => ({...action.payload}),
     }
 });
 

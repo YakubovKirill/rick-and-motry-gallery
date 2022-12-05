@@ -1,6 +1,6 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-import { useGetStatusFilteredCharactersByPageQuery } from './API';
+// import { useGetStatusFilteredCharactersByPageQuery } from './API';
 import { MessageWrap } from './components/MessageWrap/MessageWrap';
 import { Content } from './components/Content/Content';
 import { useAppDispatch, useAppSelector } from './store';
@@ -9,6 +9,7 @@ import './test.scss';
 import { LABEL } from './label';
 import { ROUTE } from './route';
 import NavBar from './components/NavBar/NavBar';
+import { useGetFilteredCharactersQuery } from './API';
 
 const GalleryList = lazy(() => import('./components/Gallery/GalleryList'));
 const PersonInfo = lazy(() => import('./components/PersonInfo/PersonInfo'));
@@ -16,13 +17,12 @@ const PersonInfo = lazy(() => import('./components/PersonInfo/PersonInfo'));
 function App() {
   const dispatch = useAppDispatch()
   const filter = useAppSelector((state) => state.filter);
-  const currentPage = useAppSelector((state) => state.currentPage);
-  const { data, isFetching } = useGetStatusFilteredCharactersByPageQuery({page: currentPage, status: filter});
+  const { data, isFetching } = useGetFilteredCharactersQuery({...filter});
 
   useEffect(() => {
     dispatch(clearCharacters());
     dispatch(addCharacters(data?.results || []));
-  }, [data, currentPage, filter, dispatch]);
+  }, [data, filter.gender, filter.name, filter.page, filter.status, dispatch]);
  
   return (
     <div className="App">

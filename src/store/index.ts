@@ -3,13 +3,11 @@ import { charactersApi } from "../API";
 import { charactersSlice } from "./slices/characters";
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { galleryFilter } from "./slices/galleryFilter";
-import { currentPage } from "./slices/currentPage";
 
 export const store = configureStore({
     reducer: {
       characters: charactersSlice.reducer,
       filter: galleryFilter.reducer,
-      currentPage: currentPage.reducer,
       [charactersApi.reducerPath]: charactersApi.reducer,
     },
     middleware: (getDefaultMiddleware) =>

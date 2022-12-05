@@ -15,7 +15,21 @@ export interface IResponse {
 
 interface QueryParams {
   page: number,
-  status: string,
+  name?: string,
+  status?: string,
+  gender?: string,
+}
+
+const getQueryString = (props: QueryParams) => {
+  let query = ''
+  Object.entries(props).forEach((prop, index) => {
+    if (prop[1] !== '' && prop[1] !== 'All') {
+      if (index === 0) query += '?'
+        else query += '&'
+      query += `${prop[0]}=${prop[1]}`
+    };
+  })
+  return query;
 }
 
 // Define a service using a base URL and expected endpoints
@@ -23,13 +37,13 @@ export const charactersApi = createApi({
   reducerPath: 'charactersApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://rickandmortyapi.com/api/' }),
   endpoints: (builder) => ({
-    getStatusFilteredCharactersByPage: builder.query<IResponse, QueryParams>({
-      query: ({ page, status }) => `character/?page=${page}${status !== 'All' ? `&status=${status}`: ''}`,
+    getFilteredCharacters: builder.query<IResponse, QueryParams>({
+      query: (props) => `character/${getQueryString(props)}`,
       transformResponse: (response: IResponse) => response,
     }),
   }),
 })
 
 export const {
-  useGetStatusFilteredCharactersByPageQuery
+  useGetFilteredCharactersQuery
 } = charactersApi;
