@@ -1,6 +1,5 @@
 import { lazy, Suspense, useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
-// import { useGetStatusFilteredCharactersByPageQuery } from './API';
 import { MessageWrap } from './components/MessageWrap/MessageWrap';
 import { Content } from './components/Content/Content';
 import { useAppDispatch, useAppSelector } from './store';

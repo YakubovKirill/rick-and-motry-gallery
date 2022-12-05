@@ -5,8 +5,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Controller, useForm } from "react-hook-form";
 import { PERSON_GENDER, PERSON_STATUS } from '../../../types';
 import { useAppDispatch, useAppSelector } from '../../../store';
-import { useGetFilteredCharactersQuery } from '../../../API';
-import { setFilter } from '../../../store/slices/galleryFilter';
+import { initialState as initialFilterState, setFilter } from '../../../store/slices/galleryFilter';
 
 const MenuProps = {
     PaperProps: {
@@ -21,11 +20,11 @@ const schema = yup.object({
 }).required();
 
 export const SearchForm = () => {
+    const filter = useAppSelector((state) => state.filter);
     const { control, handleSubmit, reset, getValues } = useForm({
-        defaultValues: { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL },
+        defaultValues: { name: filter.name, status: filter.status, gender: filter.gender },
         resolver: yupResolver(schema),
     });
-    const filter = useAppSelector((state) => state.filter);
     const dispatch = useAppDispatch()
 
     const formSubmit = (data: {
@@ -40,11 +39,10 @@ export const SearchForm = () => {
     }
 
     const clearFilter = () => {
-        reset()
+        reset({ ...initialFilterState })
+
         dispatch(setFilter({
-            ...filter,
-            page: 1,
-            ...getValues()
+            ...initialFilterState
         }));
     }
 

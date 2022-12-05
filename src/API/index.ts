@@ -36,6 +36,7 @@ const getQueryString = (props: QueryParams) => {
 export const charactersApi = createApi({
   reducerPath: 'charactersApi',
   baseQuery: fetchBaseQuery({ baseUrl: 'https://rickandmortyapi.com/api/' }),
+  refetchOnReconnect: true,
   endpoints: (builder) => ({
     getFilteredCharacters: builder.query<IResponse, QueryParams>({
       query: (props) => `character/${getQueryString(props)}`,

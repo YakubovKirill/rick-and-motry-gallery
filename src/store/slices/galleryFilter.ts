@@ -8,7 +8,7 @@ interface GalleryFilter {
     gender: string,
 }
 
-const initialState = {
+export const initialState = {
     page: 1,
     name: '',
     status: PERSON_STATUS.ALL,
