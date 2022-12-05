@@ -91,28 +91,39 @@ export const SearchForm = () => {
             />
            
             <InputLabel id="person-status-label">Status</InputLabel>
-          <Select
-                labelId="person-status-label"
-                id="person-status"
-                defaultValue={ PERSON_STATUS.ALL }
-                MenuProps={ MenuProps }
-                sx={{ width: 300, marginBottom: 2 }}
-                {...register('status')}
-            >
-                {Object.values(PERSON_STATUS).map((status) => <MenuItem value={ status } key={ status }>{ status }</MenuItem>)}
-            </Select>
+            <Controller
+                control={ control }
+                name='status'
+                render={({formState, field}) => 
+                    <Select
+                        labelId="person-status-label"
+                        id="person-status"
+                        defaultValue={ PERSON_STATUS.ALL }
+                        MenuProps={ MenuProps }
+                        {...field}
+                        sx={{ width: 300, marginBottom: 2 }}
+                    >
+                        {Object.values(PERSON_STATUS).map((status) => <MenuItem value={ status } key={ status }>{ status }</MenuItem>)}
+                    </Select>
+            }/>
 
             <InputLabel id="person-gender-label">Gender</InputLabel>
-            <Select
-                labelId="person-gender-label"
-                id="person-gender"
-                defaultValue={ PERSON_GENDER.ALL }
-                MenuProps={ MenuProps }
-                sx={{ width: 300, marginBottom: 2 }}
-                {...register('gender')}
-            >
-                {Object.values(PERSON_GENDER).map((gender) => <MenuItem value={ gender } key={ gender }>{ gender }</MenuItem>)}
-            </Select>
+            <Controller
+                control={ control }
+                name='gender'
+                render={({formState, field}) => 
+                    <Select
+                        labelId="person-gender-label"
+                        id="person-gender"
+                        defaultValue={ PERSON_GENDER.ALL }
+                        MenuProps={ MenuProps }
+                        {...field}
+                        sx={{ width: 300, marginBottom: 2 }}
+                    >
+                        {Object.values(PERSON_GENDER).map((gender) => <MenuItem value={ gender } key={ gender }>{ gender }</MenuItem>)}
+                    </Select>
+                }
+            />
             <Button type='submit'>Show</Button>
         </Box>
     )
