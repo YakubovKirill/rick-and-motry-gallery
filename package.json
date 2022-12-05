@@ -7,6 +7,7 @@
     "@emotion/styled": "^11.10.5",
     "@fontsource/public-sans": "^4.5.11",
     "@fontsource/roboto": "^4.5.8",
+    "@hookform/resolvers": "^2.9.10",
     "@mui/icons-material": "^5.10.16",
     "@mui/joy": "^5.0.0-alpha.56",
     "@mui/lab": "^5.0.0-alpha.110",
@@ -29,7 +30,8 @@
     "react-scripts": "5.0.1",
     "styled-components": "^5.3.6",
     "typescript": "^4.9.3",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

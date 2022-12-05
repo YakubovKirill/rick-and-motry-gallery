@@ -1,8 +1,8 @@
-import { Button, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from '@mui/material';
+import { Button, InputLabel, MenuItem, Select, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
-import LoadingButton from '@mui/lab/LoadingButton';
-import { useForm } from "react-hook-form";
-import {  useEffect, useState } from 'react';
+import * as yup from "yup";
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Controller, useForm } from "react-hook-form";
 import { PERSON_GENDER, PERSON_STATUS } from '../../../types';
 
 const MenuProps = {
@@ -13,103 +13,83 @@ const MenuProps = {
     },
   };
 
-type ChangeTypeEvent = React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>  | SelectChangeEvent<string>
-type Options = {
-    defaultValues?: Record<string, string>
-    rules?: Record<string, Record<string, string | number | boolean>>
-}
-const defaultValues = { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL}
-const rules:Record<string, Record<string, string | number | boolean>> = {name: {minLength: 3}}
+// type ChangeTypeEvent = React.ChangeEvent<HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement>  | SelectChangeEvent<string>
+// type Options = {
+//     defaultValues?: Record<string, string>
+//     rules?: Record<string, Record<string, string | number | boolean>>
+// }
+// const defaultValues = { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL}
+// const rules:Record<string, Record<string, string | number | boolean>> = {name: {minLength: 3}}
 
 
-const useForm1 = (options: Options) => {
-    const [values, setValue] = useState(options.defaultValues || {});
-    const [errors, setError] = useState<Record<string, {message: string, type: string}[]>>( {})
+// const useForm1 = (options: Options) => {
+//     const [values, setValue] = useState(options.defaultValues || {});
+//     const [errors, setError] = useState<Record<string, {message: string, type: string}[]>>( {})
    
-    const generateOnChange = (fieldName: string) => (event: ChangeTypeEvent) => {
-        setValue(prev => ({...prev, [fieldName]: event.target.value}))
-        Object.entries(rules[fieldName]).forEach(([currentType, value]) => {
-            if(currentType === 'minLength') {
-                if(event.target.value.length < value) {
-                    setError(prev => ({...prev, [fieldName]: [{message: 'Short name', type: currentType}]}))
-                } else {
-                    setError(prev => {
-                        console.log(prev[fieldName].filter(({type}) => type !== currentType))
-                        return {...prev, [fieldName]: prev[fieldName].filter(({type}) => type !== currentType)}
-                    } )
-                }
-            }
-        })
+//     const generateOnChange = (fieldName: string) => (event: ChangeTypeEvent) => {
+//         setValue(prev => ({...prev, [fieldName]: event.target.value}))
+//         Object.entries(rules[fieldName]).forEach(([currentType, value]) => {
+//             if(currentType === 'minLength') {
+//                 if(event.target.value.length < value) {
+//                     setError(prev => ({...prev, [fieldName]: [{message: 'Short name', type: currentType}]}))
+//                 } else {
+//                     setError(prev => {
+//                         console.log(prev[fieldName].filter(({type}) => type !== currentType))
+//                         return {...prev, [fieldName]: prev[fieldName].filter(({type}) => type !== currentType)}
+//                     } )
+//                 }
+//             }
+//         })
        
-    } 
+//     } 
 
-    const register = (name: string) => ({
-        value: values[name],
-        onChange: generateOnChange(name),
-        name,
-        // error: Boolean(errors[name]?.length),
-        // helperText: errors[name]?.[0] ? errors[name][0].message : ''
-    })
+//     const register = (name: string) => ({
+//         value: values[name],
+//         onChange: generateOnChange(name),
+//         name,
+//         // error: Boolean(errors[name]?.length),
+//         // helperText: errors[name]?.[0] ? errors[name][0].message : ''
+//     })
 
-    return {
-        register
-    }
-}
+//     return {
+//         register
+//     }
+// }
+
+const schema = yup.object({
+    name: yup.string().required().min(3)
+}).required();
 
 export const SearchForm = () => {
 
-    // const {register} = useForm({defaultValues, rules});
+    const { register, control, handleSubmit } = useForm({
+        defaultValues: { name: '', status: PERSON_STATUS.ALL, gender: PERSON_GENDER.ALL },
+        resolver: yupResolver(schema),
+    });
 
-    const { register, handleSubmit, formState: { errors } } = useForm();
-
-    // const [nameField, setNameField] = useState<String>('');
-    // const [loading, setIsLoading] = useState(false);
-    // const [statusField, setStatusField] = useState<String>(PERSON_STATUS.ALL);
-    // const [genderField, setGenderField] = useState<String>(PERSON_GENDER.ALL);
-    // const [error, setError] = useState({
-    //     isError: false,
-    //     message: '',
-    // })
-
-    // const changeNameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     setNameField(event.target.value);
-    //     setError({
-    //         isError: false,
-    //         message: '',
-    //     })
-    // }
-
-    // const changeStatusField = (event: SelectChangeEvent<String>, child: React.ReactNode) => {
-    //     setStatusField(event.target.value);
-    // }
-
-    // const changeGenderField = (event: SelectChangeEvent<String>, child: React.ReactNode) => {
-    //     setGenderField(event.target.value);
-    // }
-
-    // const searchFormSubmit = () => {
-    //     setIsLoading(true);
-    //     setTimeout(() => {
-    //         setIsLoading(false)
-    //     }, 2000);
-    //     if (!nameField.length) {
-    //         setError({
-    //             isError: true,
-    //             message: 'Enter name',
-    //         })
-    //     }
-    // }
+    const formSubmit = (data: {
+        name: string;
+        status: string;
+        gender: string;
+    }) => {
+        console.log(data)
+    }
 
     return (
-        <Box component="form" onSubmit={handleSubmit((data) => console.log(data))}>
-            <TextField
-                id="person-name"
-                label="Person name"
-                variant='outlined'
-                error={ errors.name ? true: false }
-                {...register('name', { minLength: 3 })}
+        <Box component="form" onSubmit={handleSubmit(formSubmit)}>
+            <Controller
+                control={control}
+                name="name"
+                render={({formState, field}) =>  <TextField
+                    id="person-name"
+                    label="Person name"
+                    variant='outlined'
+                    {...field}
+                    helperText={formState.errors.name?.message}
+                    error={!!formState.errors.name}
+                />}
             />
-
+           
             <InputLabel id="person-status-label">Status</InputLabel>
           <Select
                 labelId="person-status-label"
