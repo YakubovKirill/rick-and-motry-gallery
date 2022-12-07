@@ -14,8 +14,7 @@ interface IPersonCardProps {
 
 const PersonCard = ({ person }: IPersonCardProps) => {
     return (
-        <Link to={`/${ person.id }`}>
-            <Card sx={{ maxWidth: 300 }} style={{ marginBottom: 30 }}>
+            <Card sx={{ maxWidth: 250 }} style={{ marginBottom: 30 }}>
                 <CardActionArea>
                     <CardHeader
                         title={ person.name }
@@ -44,7 +43,6 @@ const PersonCard = ({ person }: IPersonCardProps) => {
                     </CardContent>
                 </CardActionArea>
             </Card>
-        </Link>
     );
 }
 

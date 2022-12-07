@@ -8,5 +8,8 @@ export const theme = createTheme({
         secondary: {
           main: '#eb8675',
         },
+    },
+    typography: {
+      fontSize: 13,
     }
 })
