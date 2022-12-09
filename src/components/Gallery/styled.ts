@@ -65,3 +65,14 @@ export const SmallHeader = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'space-between',
 }));
+
+export const MyCollectionList = styled('div')(({ theme }) => ({
+    width: 30,
+    height: 30,
+    cursor: 'pointer',
+    borderRadius: 20,
+    backgroundColor: '#8080806b',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+}));
