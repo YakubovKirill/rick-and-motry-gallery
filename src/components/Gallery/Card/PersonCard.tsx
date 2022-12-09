@@ -1,3 +1,4 @@
+import Button from "@mui/material/Button";
 import Card from "@mui/material/Card";
 import CardActionArea from "@mui/material/CardActionArea";
 import CardContent from "@mui/material/CardContent";
@@ -34,12 +35,14 @@ const PersonCard = ({ person }: IPersonCardProps) => {
                         </Typography>
                     </CardContent>
                     <CardContent>
-                        <Typography>
-                        Status
-                        </Typography>
-                        <Typography color={person.status === 'Alive' ? "primary" : "secondary"}>
-                        { person.status }
-                        </Typography>
+                        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                            <Typography color={person.status === 'Alive' ? "primary" : "secondary"}>
+                                { person.status }
+                            </Typography>
+                            <Link to={`/${ person.id }`}>
+                                <Button>More</Button>
+                            </Link>
+                        </div>
                     </CardContent>
                 </CardActionArea>
             </Card>

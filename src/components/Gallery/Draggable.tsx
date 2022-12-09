@@ -19,7 +19,10 @@ function Draggable( props: any ) {
         <div ref={ setNodeRef } style={ style } { ...listeners } { ...attributes }>
             {
                 props.isShort ?
-                    <PersonShortCard person={ props.character } isDeleteProcess={ over?.id === LABEL.DELETE_ID && isDragging } />
+                    <PersonShortCard
+                        person={ props.character }
+                        isDeleteProcess={ over?.id === LABEL.DELETE_ID && isDragging }
+                    />
                     : <PersonCard person={ props.character } />
             }
         </div>
