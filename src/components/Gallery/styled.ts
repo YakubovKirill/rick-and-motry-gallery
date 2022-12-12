@@ -18,9 +18,9 @@ export const Box = styled('div')(({ theme }) => ({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 20,
-}))
+}));
 
-export const MyCollection = styled('div')((theme) => ({
+export const MyCollectionWrap = styled('div')((theme) => ({
     width: 220,
     minHeight: 200,
     maxHeight: 500,
@@ -31,7 +31,7 @@ export const MyCollection = styled('div')((theme) => ({
     top: 0,
     left: 0,
     overflow: 'hidden',
-}))
+}));
 
 export const FlexGalleryWrap = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -40,7 +40,7 @@ export const FlexGalleryWrap = styled('div')(({ theme }) => ({
     justifyContent: 'space-evenly',
     width: 'fit-content',
     maxWidth: 800,
-}))
+}));
 
 export const ListWrap = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -49,7 +49,7 @@ export const ListWrap = styled('div')(({ theme }) => ({
     justifyContent: 'space-evenly',
     width: 'fit-content',
     maxWidth: 800,
-}))
+}));
 
 export const GalleryInnerWrap = styled('div')(({ theme }) => ({
     display: 'flex',
@@ -57,7 +57,7 @@ export const GalleryInnerWrap = styled('div')(({ theme }) => ({
     alignItems: 'flex-start',
     justifyContent: 'space-between',
     gap: 20,
-}))
+}));
 
 export const SmallHeader = styled('div')(({ theme }) => ({
     margin: 10,

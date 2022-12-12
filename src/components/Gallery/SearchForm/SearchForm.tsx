@@ -13,7 +13,7 @@ const MenuProps = {
         width: 250,
       },
     },
-  };
+};
 
 const schema = yup.object({
     name: yup.string()

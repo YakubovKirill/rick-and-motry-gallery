@@ -3,15 +3,14 @@ import { memo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../store";
 import { reselectCharacterByStatus } from "../../store/slices/characters";
 import { setFilter } from "../../store/slices/galleryFilter";
-import { Box, Gallery, GalleryInnerWrap, ListWrap, MyCollection, MyCollectionList, SmallHeader } from "./styled";
+import { Box, Gallery, GalleryInnerWrap, ListWrap } from "./styled";
 import { MessageWrap } from "../MessageWrap/MessageWrap";
 import { LABEL } from "../../label";
 import { SearchForm } from "./SearchForm/SearchForm";
 import { DndContext, DragEndEvent } from '@dnd-kit/core';
 
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import Draggable from "./Draggable";
-import Droppable from "./Droppable";
+import MyCollection from "./MyCollection";
 
 interface Props {
     pagesCount: number,
@@ -49,30 +48,13 @@ const GalleryList = ({ pagesCount = 10, isFetching }: Props) => {
                 </Box>
                 <GalleryInnerWrap>
                     <DndContext onDragEnd={ onDrop }>
-                            <MyCollection>
-                                    <SmallHeader>
-                                        <h4>MyCollection</h4>
-                                        <MyCollectionList>
-                                            <Droppable id={ LABEL.DELETE_ID }>
-                                                <DeleteOutlineIcon />
-                                            </Droppable>
-                                        </MyCollectionList>
-                                    </SmallHeader>
-                                <Droppable id="myCollection" customStyle={{ width: '100%', height: '100%', minHeight: 200 }}>
-                                    <div>
-                                        { myCollection.myCollection.map( charId => {
-                                            const character = characters.find(({ id }) => charId === id)
-                                            return character ? <Draggable  id={ character.id + Math.random() } character={ character } key={ character.id } isShort /> : null
-                                        })}
-                                    </div>
-                                </Droppable>
-                            </MyCollection>
-                            {
-                                isFetching ? <MessageWrap message={ LABEL.LOADING } /> :
-                                    <ListWrap>
-                                        { characters.map(( character ) => <Draggable id={ character.id } character={ character } key={ character.id } />) }
-                                    </ListWrap>
-                            }
+                        <MyCollection characters={ characters } myCollection={ myCollection.myCollection } />                            
+                        {
+                            isFetching ? <MessageWrap message={ LABEL.LOADING } /> :
+                                <ListWrap>
+                                    { characters.map(( character ) => <Draggable id={ character.id } character={ character } key={ character.id } />) }
+                                </ListWrap>
+                        }
                     </DndContext>
                 </GalleryInnerWrap>
             </Gallery>
@@ -80,4 +62,4 @@ const GalleryList = ({ pagesCount = 10, isFetching }: Props) => {
     )
 }
 
-export default memo(GalleryList);
+export default memo( GalleryList );
