@@ -40,7 +40,7 @@ const PersonCard = ({ person }: IPersonCardProps) => {
                                 { person.status }
                             </Typography>
                             <Link to={`/${ person.id }`}>
-                                <Button>More</Button>
+                                More
                             </Link>
                         </div>
                     </CardContent>

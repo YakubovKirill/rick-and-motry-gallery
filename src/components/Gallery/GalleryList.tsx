@@ -35,7 +35,11 @@ const GalleryList = ({ pagesCount = 10, isFetching }: Props) => {
         if ( active.id && over && over?.id !== LABEL.DELETE_ID && !isExistElement )
             setItemToMyCollection(prev => ({ myCollection: [...prev.myCollection, active.id] }))
         if ( over && over?.id === LABEL.DELETE_ID ) {
-            setItemToMyCollection(prev => ({ myCollection: [...prev.myCollection.filter((personId) => personId !== Math.floor(Number(active.id)))]}))
+            setItemToMyCollection(
+                prev => ({
+                    myCollection: [...prev.myCollection.filter((personId) => personId !== Math.floor(Number(active.id)))]
+                })
+            )
         }
     }
 

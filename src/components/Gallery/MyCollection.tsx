@@ -22,16 +22,15 @@ const MyCollection = ({ characters, myCollection }: MyCollectionProps) => {
                         <DeleteOutlineIcon />
                     </Droppable>
                 </MyCollectionList>
-
-                <Droppable id="myCollection" customStyle={{ width: '100%', height: '100%', minHeight: 200 }}>
-                    <div>
-                        { myCollection.map( charId => {
-                            const character = characters.find(({ id }) => charId === id)
-                            return character ? <Draggable  id={ character.id + Math.random() } character={ character } key={ character.id } isShort /> : null
-                        })}
-                    </div>
-                </Droppable>
             </SmallHeader>
+            <Droppable id="myCollection" customStyle={{ width: '100%', height: '100%', minHeight: 200 }}>
+                <div>
+                    { myCollection.map( charId => {
+                        const character = characters.find(({ id }) => charId === id)
+                        return character ? <Draggable  id={ character.id + Math.random() } character={ character } key={ character.id } isShort /> : null
+                    })}
+                </div>
+            </Droppable>
         </MyCollectionWrap>
     )
 }
